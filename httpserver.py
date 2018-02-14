@@ -12,7 +12,7 @@ class HTTPServer(http.server.BaseHTTPRequestHandler):
     def do_GET(self):
         route = httproute.HTTPRoute(self)
 
-        content = route.get_endpoint(self.path, httproute.RouteType.GET)
+        content = route.endpoint(self.path, httproute.RouteType.GET)
 
         if self.code_response == ResponseCodes.NOT_FOUND:
             content = ''
