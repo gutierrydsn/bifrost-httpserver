@@ -9,21 +9,32 @@ class HTTPServer(http.server.BaseHTTPRequestHandler):
 
     code_response = ResponseCodes.NOT_FOUND
 
-    def do_GET(self):
-        route = httproute.HTTPRoute(self)
+    def request(instance, route_type):
 
-        content = route.endpoint(self.path, httproute.RouteType.GET)
+        route = httproute.HTTPRoute(instance)
 
-        if self.code_response == ResponseCodes.NOT_FOUND:
+        content = route.endpoint(instance.path, route_type)
+        if instance.code_response == ResponseCodes.NOT_FOUND:
             content = ''
 
-        self.send_response(self.code_response.value)
-        self.send_header('Content-type', 'text/json')
-        self.end_headers()
+        instance.send_response(instance.code_response.value)
+        instance.send_header('Content-type', 'text/json')
+        instance.end_headers()
 
         body = content.encode('UTF-8', 'replace')
+        instance.wfile.write(body)
 
-        self.wfile.write(body)
+    def do_GET(self):
+        HTTPServer.request(self, httproute.RouteType.GET)
+
+    def do_POST(self):
+        HTTPServer.request(self, httproute.RouteType.POST)
+
+    def do_PUT(self):
+        HTTPServer.request(self, httproute.RouteType.PUT)
+
+    def do_DELETE(self):
+        HTTPServer.request(self, httproute.RouteType.DELETE)
 
 server = HTTPServer
 
