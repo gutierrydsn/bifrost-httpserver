@@ -1,7 +1,0 @@
-{
-	"GET": {
-              		"/api/hello": "controller.meu_controller.hello" ,
-					"/api/hello/:fulano": "controller.meu_controller.hello_fulano(fulano)" 
-              	}
-
-}
