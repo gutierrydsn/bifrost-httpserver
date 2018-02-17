@@ -1,7 +1,7 @@
 import http.server
 import socketserver
-import httproute
-from response_codes import ResponseCodes
+from .http_route import HTTPRoute, RouteType
+from .response_codes import ResponseCodes
 
 PORT = 8000
 
@@ -11,7 +11,7 @@ class HTTPServer(http.server.BaseHTTPRequestHandler):
 
     def request(instance, route_type):
 
-        route = httproute.HTTPRoute(instance)
+        route = HTTPRoute(instance)
 
         content = route.endpoint(instance.path, route_type)
         if instance.code_response == ResponseCodes.NOT_FOUND:
@@ -25,16 +25,16 @@ class HTTPServer(http.server.BaseHTTPRequestHandler):
         instance.wfile.write(body)
 
     def do_GET(self):
-        HTTPServer.request(self, httproute.RouteType.GET)
+        HTTPServer.request(self, RouteType.GET)
 
     def do_POST(self):
-        HTTPServer.request(self, httproute.RouteType.POST)
+        HTTPServer.request(self, RouteType.POST)
 
     def do_PUT(self):
-        HTTPServer.request(self, httproute.RouteType.PUT)
+        HTTPServer.request(self, RouteType.PUT)
 
     def do_DELETE(self):
-        HTTPServer.request(self, httproute.RouteType.DELETE)
+        HTTPServer.request(self, RouteType.DELETE)
 
 server = HTTPServer
 

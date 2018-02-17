@@ -1,7 +1,7 @@
 from pydoc import locate
 from enum import Enum
-from response_codes import ResponseCodes
-from list_route import ListRoute
+from .response_codes import ResponseCodes
+from .list_route import ListRoute
 
 BACK_SLASH ='/'
 PREFIX_PARAMETER = ':'
