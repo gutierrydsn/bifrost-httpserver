@@ -54,12 +54,12 @@ example file controller.py:
 
 ```python
 class classe():
-	def teste():
-    	return '{"return": "teste"}'
+	def test():
+    	return '{"return": "test ok"}'
      
-    def salvar():
+    def save():
     	...
-    	return '"return" : "Salvo com sucesso!"'
+    	return '"return" : "Success!"'
 ```
 
 [Use examples]: <samples/>
