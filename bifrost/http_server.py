@@ -35,11 +35,12 @@ class HTTPServer(http.server.BaseHTTPRequestHandler):
 
     def do_DELETE(self):
         HTTPServer.request(self, RouteType.DELETE)
+	
+    def start(self, pPort = None):
+        port = pPort or PORT
+        with socketserver.TCPServer(("", port), self) as httpd:
+            print("serving at port", port)
+            
+            httpd.serve_forever()
+#server = HTTPServer
 
-server = HTTPServer
-
-with socketserver.TCPServer(("", PORT), server) as httpd:
-    print("serving at port", PORT)
-
-    #httpd.
-    httpd.serve_forever()
